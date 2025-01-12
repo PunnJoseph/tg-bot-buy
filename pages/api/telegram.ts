@@ -12,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const chatId = message.chat.id;
       const text = message.text;
 
-      // Check if the message starts with "/start"
+      // Handle the "/start" message
       if (text && text.startsWith('/start')) {
         const welcomeText = `🎉 Welcome to the world of eMaaya!\n🚀 Experience the future of tokens like never before.\n👉 Ready to get started? Tap below to explore more and take the first step in your journey with eMaaya!`;
 
@@ -21,8 +21,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             inline_keyboard: [
               [
                 {
-                  text: `🌟 Explore eMaaya 🌟`,
-                  url: `https://emaaya.io`, // Update with the actual eMaaya link
+                  text: `🔍 Learn More`,
+                  callback_data: 'learn_more',
                 },
               ],
             ],
@@ -31,6 +31,46 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         await bot.sendMessage(chatId, welcomeText, opts);
       }
+
+      // Handle the "Learn More" button click
+      if (text && text === 'learn_more') {
+        const learnMoreText = `🌟 eMaaya is here to revolutionize the way you interact with tokens. Our cutting-edge platform ensures seamless experiences for all users.\n\n🛠 Dive deeper to discover what makes eMaaya unique!`;
+
+        const opts = {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: `🚀 Next Step`,
+                  callback_data: 'next_step',
+                },
+              ],
+            ],
+          },
+        };
+
+        await bot.sendMessage(chatId, learnMoreText, opts);
+      }
+
+      // Handle the "Next Step" button click
+      if (text && text === 'next_step') {
+        const nextStepText = `🎯 Congratulations on taking the next step with eMaaya!\n\n💬 For updates, tips, and exclusive features, stay connected with us.`;
+
+        const opts = {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: `🌐 Visit Website`,
+                  url: `https://emaaya.io`, // Update with the actual eMaaya link
+                },
+              ],
+            ],
+          },
+        };
+
+        await bot.sendMessage(chatId, nextStepText, opts);
+      }
     }
 
     res.status(200).send('Message processed');
@@ -38,6 +78,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(405).send('Method not allowed');
   }
 };
-
 
 export default handler;
