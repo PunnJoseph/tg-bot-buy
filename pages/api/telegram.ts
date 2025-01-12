@@ -5,8 +5,8 @@ const token: string = '7301376986:AAFrpKTN4mN6AtFI5YliOpe9Ir_auLCCdZk';
 const bot = new TelegramBot(token, { webHook: true });
 
 // Set the webhook URL
-const webhookUrl = `https://tg-bot-buy-maaya.vercel.app/api/telegram/setWebhook`;
-bot.setWebHook(webhookUrl);
+// const webhookUrl = `https://tg-bot-buy-maaya.vercel.app/api/telegram/setWebhook`;
+// bot.setWebHook(webhookUrl);
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('Incoming request:', req.body);
