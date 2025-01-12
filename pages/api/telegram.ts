@@ -2,15 +2,19 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import TelegramBot from 'node-telegram-bot-api';
 
 const token: string = '7301376986:AAFrpKTN4mN6AtFI5YliOpe9Ir_auLCCdZk';
-const bot = new TelegramBot(token);
+const bot = new TelegramBot(token, { webHook: true });
+
+// Set the webhook URL
+const webhookUrl = `https://tg-bot-buy-maaya.vercel.app/api/telegram/setWebhook`;
+bot.setWebHook(webhookUrl);
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const { message } = req.body;
+    const body = req.body;
 
-    if (message) {
-      const chatId = message.chat.id;
-      const text = message.text;
+    if (body.message) {
+      const chatId = body.message.chat.id;
+      const text = body.message.text;
 
       // Handle the "/start" message
       if (text && text.startsWith('/start')) {
@@ -31,9 +35,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         await bot.sendMessage(chatId, welcomeText, opts);
       }
+    }
 
-      // Handle the "Learn More" button click
-      if (text && text === 'learn_more') {
+    if (body.callback_query) {
+      const query = body.callback_query;
+      const chatId = query.message?.chat.id;
+      const data = query.data;
+
+      if (chatId && data === 'learn_more') {
         const learnMoreText = `🌟 eMaaya is here to revolutionize the way you interact with tokens. Our cutting-edge platform ensures seamless experiences for all users.\n\n🛠 Dive deeper to discover what makes eMaaya unique!`;
 
         const opts = {
@@ -52,8 +61,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await bot.sendMessage(chatId, learnMoreText, opts);
       }
 
-      // Handle the "Next Step" button click
-      if (text && text === 'next_step') {
+      if (chatId && data === 'next_step') {
         const nextStepText = `🎯 Congratulations on taking the next step with eMaaya!\n\n💬 For updates, tips, and exclusive features, stay connected with us.`;
 
         const opts = {
@@ -62,7 +70,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               [
                 {
                   text: `🌐 Visit Website`,
-                  url: `https://emaaya.io`, // Update with the actual eMaaya link
+                  url: `https://emaaya.io`, // Replace with your actual link
                 },
               ],
             ],
@@ -71,9 +79,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         await bot.sendMessage(chatId, nextStepText, opts);
       }
+
+      // Acknowledge the callback query
+      await bot.answerCallbackQuery(query.id);
     }
 
-    res.status(200).send('Message processed');
+    res.status(200).send('OK');
   } else {
     res.status(405).send('Method not allowed');
   }
