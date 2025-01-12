@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Pollar+One&display=swap');
+
+body {
+  font-family: sans-serif;
+}
+
+@keyframes float {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.bg-gradient-main {
+  background: linear-gradient(to top, #272af0, #7797f7);
+}
+
+.bg-gradient-overlay {
+  background: linear-gradient(180deg, rgb(155, 162, 206) 0%, rgb(151, 157, 165) 40%, rgba(167, 214, 223, 0) 100%);
+}
+
+.radial-gradient-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* background: radial-gradient(circle, rgba(119, 72, 247, 0.8) 0%, rgba(250, 214, 92, 0) 60%); */
+  /* background: radial-gradient(circle, #29B6F6 0%, rgba(14, 27, 51, 0) 60%); */
+  /* background: radial-gradient(circle, #29B6F6 0%, rgba(14, 27, 51, 0.7) 60%, rgba(14, 27, 51, 0.9) 80%, #0e1b33 100%); */
+  background: linear-gradient(180deg, #041B33 0%, #0C4075 40%, #041931 100%);
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Adjust this to fit your layout */
+}
+
+.spinner {
+  border: 8px solid rgba(159, 154, 154, 0.3); /* Light color */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes float-airdrop {
+  0% { transform: translateY(0); }
+   50% { transform: translateY(-25px); } /* Adjust the distance */
+  100% { transform: translateY(0); }
+}
+
+.animate-float-airdrop {
+  animation: float-airdrop 3s ease-in-out infinite;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
