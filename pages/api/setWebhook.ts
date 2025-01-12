@@ -1,15 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import TelegramBot from 'node-telegram-bot-api';
 
-// const token = process.env.TELEGRAM_BOT_TOKEN!;
-// TODO
-const token: string = '7028011735:AAF-3b45TKcrm8Z-xtfDElE6pcAOGXpfBwg';
+const token: string = '7301376986:AAFrpKTN4mN6AtFI5YliOpe9Ir_auLCCdZk';
 
 const bot = new TelegramBot(token);
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  // TODO
-  const url = `https://cat-clicker-game-tg.vercel.app/api/telegram`;
+  const url = `https://tg-bot-buy-maaya.vercel.app/api/telegram`;
 
   try {
     await bot.setWebHook(url);
