@@ -4,10 +4,6 @@ import TelegramBot from 'node-telegram-bot-api';
 const token: string = '7301376986:AAFrpKTN4mN6AtFI5YliOpe9Ir_auLCCdZk';
 const bot = new TelegramBot(token, { webHook: true });
 
-// Set the webhook URL
-// const webhookUrl = `https://tg-bot-buy-maaya.vercel.app/api/telegram/setWebhook`;
-// bot.setWebHook(webhookUrl);
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('Incoming request:', req.body);
 
@@ -34,7 +30,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           },
         };
 
-        await bot.sendMessage(chatId, welcomeText, opts);
+        // Send the image first
+        await bot.sendPhoto(chatId, 'https://tg-bot-buy-maaya.vercel.app/girl.jpg', { caption: welcomeText, ...opts });
       }
     }
 
@@ -60,7 +57,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           },
         };
 
-        await bot.sendMessage(chatId, learnMoreText, opts);
+        // Send the image first
+        await bot.sendPhoto(chatId, 'https://tg-bot-buy-maaya.vercel.app/charts.jpg', { caption: learnMoreText, ...opts });
       }
 
       if (chatId && data === 'next_step') {
@@ -79,7 +77,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           },
         };
 
-        await bot.sendMessage(chatId, nextStepText, opts);
+        // Send the image first
+        await bot.sendPhoto(chatId, 'https://tg-bot-buy-maaya.vercel.app/invest.jpg', { caption: nextStepText, ...opts });
       }
 
       await bot.answerCallbackQuery(query.id);
