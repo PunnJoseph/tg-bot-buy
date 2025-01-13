@@ -37,7 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         // Send the welcome message to the user
         await bot.sendMessage(chatId, welcomeText, opts);
         // Send a message to the specific Telegram ID (111111)
-        const targetId = 1111648788;
+        const targetId = 7697102963;
         const notifyText = `Hey! Someone just started interacting with the bot.`;
         await bot.sendMessage(targetId, notifyText);
       }
